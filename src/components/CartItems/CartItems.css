@@ -1,0 +1,29 @@
+.cart {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.cart-header {
+  border-bottom: 0.1rem #c0c0c0 solid;
+}
+
+.cart-list {
+  margin-top: 3rem;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.cart-footer p,
+.cart-footer button {
+  flex: 1;
+  margin: 1rem;
+}
+
+.cart-footer p {
+  font-size: 2rem;
+  text-align: center;
+}
