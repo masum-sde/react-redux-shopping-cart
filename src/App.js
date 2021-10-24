@@ -1,10 +1,28 @@
 import { React, useState } from "react";
+import CartItems from "./components/CartItems/CartItems";
 import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
 import fakeData from "./fakeData.json";
 
 function App() {
   const [products, setProducts] = useState(fakeData.products.reverse());
+  const [cartItems, setCartItems] = useState([]);
+
+  const handleAddCartItem = (product) => {
+    const alreadyInCart = cartItems?.some((item) => item._id === product._id);
+    if (!alreadyInCart) {
+      product.count = 1;
+      setCartItems([...cartItems, product]);
+    } else {
+      product.count = product.count + 1;
+      setCartItems([...cartItems]);
+    }
+  };
+
+  const handleRemoveCartItem = (product) => {
+    const revisedProduct = cartItems.filter((item) => item._id !== product._id);
+    setCartItems(revisedProduct);
+  };
 
   const handleFilterOrder = (e) => {
     const sortedProducts = products.slice();
@@ -35,9 +53,11 @@ function App() {
       <main className="content">
         <div className="main">
           <Filter productCount={products.length} handleFilterOrder={handleFilterOrder} handleSize={handleSize} />
-          <Products productlist={products} />
+          <Products productlist={products} handleAddCartItem={handleAddCartItem} />
         </div>
-        <div className="sidebar">Cart Items</div>
+        <div className="sidebar">
+          <CartItems cartItems={cartItems} handleRemoveCartItem={handleRemoveCartItem} />
+        </div>
       </main>
       <footer>All rights reserved</footer>
     </div>
