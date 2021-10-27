@@ -2,7 +2,6 @@ import React from "react";
 import "./CartItem.css";
 import formatCurrency from "./../../util";
 const CartItem = ({ item, handleRemoveCartItem }) => {
-  console.log(item);
   return (
     <div className="cart-item">
       <div>

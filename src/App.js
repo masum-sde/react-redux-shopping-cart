@@ -6,21 +6,29 @@ import fakeData from "./fakeData.json";
 
 function App() {
   const [products, setProducts] = useState(fakeData.products.reverse());
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(
+    localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : localStorage.setItem("cartItems", JSON.stringify([]))
+  );
 
   const handleAddCartItem = (product) => {
     const alreadyInCart = cartItems?.some((item) => item._id === product._id);
     if (!alreadyInCart) {
       product.count = 1;
       setCartItems([...cartItems, product]);
+      localStorage.setItem("cartItems", JSON.stringify([...cartItems, product]));
     } else {
-      product.count = product.count + 1;
+      const productItem = cartItems?.find((item) => item._id === product._id);
+      productItem.count = productItem.count + 1;
       setCartItems([...cartItems]);
+      localStorage.setItem("cartItems", JSON.stringify([...cartItems]));
     }
   };
 
   const handleRemoveCartItem = (product) => {
     const revisedProduct = cartItems.filter((item) => item._id !== product._id);
+    localStorage.setItem("cartItems", JSON.stringify(revisedProduct));
     setCartItems(revisedProduct);
   };
 
@@ -45,6 +53,10 @@ function App() {
     }
   };
 
+  const handleOrderedData = (order) => {
+    alert("Need to save order for " + order.name);
+  };
+
   return (
     <div className="grid-container">
       <header>
@@ -56,7 +68,11 @@ function App() {
           <Products productlist={products} handleAddCartItem={handleAddCartItem} />
         </div>
         <div className="sidebar">
-          <CartItems cartItems={cartItems} handleRemoveCartItem={handleRemoveCartItem} />
+          <CartItems
+            cartItems={cartItems}
+            handleRemoveCartItem={handleRemoveCartItem}
+            handleOrderedData={handleOrderedData}
+          />
         </div>
       </main>
       <footer>All rights reserved</footer>

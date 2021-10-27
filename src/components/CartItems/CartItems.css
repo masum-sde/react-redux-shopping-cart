@@ -27,3 +27,18 @@
   font-size: 2rem;
   text-align: center;
 }
+.form-input-holder {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.form-input-holder input {
+  border: 1px #c0c0c0 solid;
+  height: 4rem;
+  margin: 1rem 0rem;
+  padding: 0.1rem 0.5rem;
+}
+.form-submit-button input {
+  width: 100%;
+}
