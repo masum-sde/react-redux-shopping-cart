@@ -1,7 +1,6 @@
 import React from "react";
 import "./Filter.css";
 const Filter = (props) => {
-  console.log(props);
   return (
     <div className="filter">
       <div className="filter-result">{props.productCount} Products</div>
