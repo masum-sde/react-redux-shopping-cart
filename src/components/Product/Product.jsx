@@ -1,10 +1,10 @@
 import React from "react";
 import "./Product.css";
 import formatCurrency from "./../../util";
-const Product = ({ item, handleAddCartItem }) => {
+const Product = ({ item, handleAddCartItem, handleOpenModal }) => {
   return (
     <div className="product">
-      <a href={"#" + item._id}>
+      <a href={"#" + item._id} onClick={() => handleOpenModal(item)}>
         <img src={item.image} alt={item.title} />
         <p>{item.title}</p>
       </a>
