@@ -24,12 +24,12 @@ const Products = ({ handleAddCartItem }) => {
   };
   return (
     <div>
-      {!products.items ? (
+      {!products ? (
         <div>Loading</div>
       ) : (
         <Fade bottom collapse>
           <ul className="products">
-            {products.items.reverse().map((item, index) => (
+            {products?.filteredItems?.reverse().map((item, index) => (
               <li>
                 <Product key={index} item={item} handleAddCartItem={handleAddCartItem} handleOpenModal={openModal} />
               </li>

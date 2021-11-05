@@ -1,14 +1,10 @@
-import { React, useEffect, useState } from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreator } from "./actions";
+import { React, useState } from "react";
+import { Provider } from "react-redux";
 import CartItems from "./components/CartItems/CartItems";
 import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
-import fakeData from "./fakeData.json";
 import store from "./store/store";
 function App() {
-  const [products, setProducts] = useState(fakeData.products.reverse());
   const [cartItems, setCartItems] = useState(
     localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
@@ -35,27 +31,6 @@ function App() {
     setCartItems(revisedProduct);
   };
 
-  const handleFilterOrder = (e) => {
-    const sortedProducts = products.slice();
-    if (e.target.value === "latest") {
-      sortedProducts.sort((a, b) => (a._id > b._id ? -1 : 1));
-    } else {
-      sortedProducts.sort((a, b) =>
-        e.target.value === "lowest" ? (a.price > b.price ? 1 : -1) : a.price > b.price ? -1 : 1
-      );
-    }
-    setProducts(sortedProducts);
-  };
-
-  const handleSize = (e) => {
-    if (e.target.value) {
-      const filterProducts = fakeData.products.filter((product) => product.availableSizes.indexOf(e.target.value) >= 0);
-      setProducts(filterProducts);
-    } else {
-      setProducts(fakeData.products);
-    }
-  };
-
   const handleOrderedData = (order) => {
     alert("Need to save order for " + order.name);
   };
@@ -68,7 +43,7 @@ function App() {
         </header>
         <main className="content">
           <div className="main">
-            <Filter productCount={products.length} handleFilterOrder={handleFilterOrder} handleSize={handleSize} />
+            <Filter />
             <Products handleAddCartItem={handleAddCartItem} />
           </div>
           <div className="sidebar">
