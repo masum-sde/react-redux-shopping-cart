@@ -8,7 +8,7 @@ import formatCurrency from "./../../util";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreator } from "./../../actions/index";
-const Products = ({ productlist, handleAddCartItem }) => {
+const Products = ({ handleAddCartItem }) => {
   const [product, setProduct] = useState(null);
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
@@ -16,27 +16,27 @@ const Products = ({ productlist, handleAddCartItem }) => {
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  console.log(products.items);
   const openModal = (product) => {
     setProduct(product);
-    console.log(product);
   };
   const closeModal = () => {
     setProduct(null);
   };
   return (
     <div>
-      <Fade bottom collapse>
-        <ul className="products">
-          {products?.items?.length &&
-            products.items.reverse().map((item, index) => (
+      {!products.items ? (
+        <div>Loading</div>
+      ) : (
+        <Fade bottom collapse>
+          <ul className="products">
+            {products.items.reverse().map((item, index) => (
               <li>
                 <Product key={index} item={item} handleAddCartItem={handleAddCartItem} handleOpenModal={openModal} />
               </li>
             ))}
-        </ul>
-      </Fade>
+          </ul>
+        </Fade>
+      )}
 
       {product && (
         <Modal isOpen={true} onRequestClose={closeModal}>

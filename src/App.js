@@ -1,5 +1,7 @@
 import { React, useEffect, useState } from "react";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreator } from "./actions";
 import CartItems from "./components/CartItems/CartItems";
 import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
@@ -67,7 +69,7 @@ function App() {
         <main className="content">
           <div className="main">
             <Filter productCount={products.length} handleFilterOrder={handleFilterOrder} handleSize={handleSize} />
-            <Products productlist={products} handleAddCartItem={handleAddCartItem} />
+            <Products handleAddCartItem={handleAddCartItem} />
           </div>
           <div className="sidebar">
             <CartItems

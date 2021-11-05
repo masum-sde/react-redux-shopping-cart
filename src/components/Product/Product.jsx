@@ -2,7 +2,6 @@ import React from "react";
 import "./Product.css";
 import formatCurrency from "./../../util";
 const Product = ({ item, handleAddCartItem, handleOpenModal }) => {
-  console.log("item", item);
   return (
     <div className="product">
       <a href={"#" + item._id} onClick={() => handleOpenModal(item)}>
