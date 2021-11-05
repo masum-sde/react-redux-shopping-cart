@@ -1,9 +1,12 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreator } from "./actions";
 import CartItems from "./components/CartItems/CartItems";
 import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
 import fakeData from "./fakeData.json";
-
+import store from "./store/store";
 function App() {
   const [products, setProducts] = useState(fakeData.products.reverse());
   const [cartItems, setCartItems] = useState(
@@ -58,25 +61,27 @@ function App() {
   };
 
   return (
-    <div className="grid-container">
-      <header>
-        <a href="/">React-Redux-Shopping cart</a>
-      </header>
-      <main className="content">
-        <div className="main">
-          <Filter productCount={products.length} handleFilterOrder={handleFilterOrder} handleSize={handleSize} />
-          <Products productlist={products} handleAddCartItem={handleAddCartItem} />
-        </div>
-        <div className="sidebar">
-          <CartItems
-            cartItems={cartItems}
-            handleRemoveCartItem={handleRemoveCartItem}
-            handleOrderedData={handleOrderedData}
-          />
-        </div>
-      </main>
-      <footer>All rights reserved</footer>
-    </div>
+    <Provider store={store}>
+      <div className="grid-container">
+        <header>
+          <a href="/">React-Redux-Shopping cart</a>
+        </header>
+        <main className="content">
+          <div className="main">
+            <Filter productCount={products.length} handleFilterOrder={handleFilterOrder} handleSize={handleSize} />
+            <Products handleAddCartItem={handleAddCartItem} />
+          </div>
+          <div className="sidebar">
+            <CartItems
+              cartItems={cartItems}
+              handleRemoveCartItem={handleRemoveCartItem}
+              handleOrderedData={handleOrderedData}
+            />
+          </div>
+        </main>
+        <footer>All rights reserved</footer>
+      </div>
+    </Provider>
   );
 }
 
