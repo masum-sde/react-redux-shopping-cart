@@ -3,7 +3,9 @@ import CartItem from "../CartItem/CartItem";
 import "./CartItems.css";
 import formatCurrency from "./../../util";
 import Fade from "react-reveal/Fade";
-const CartItems = ({ cartItems, handleRemoveCartItem, handleOrderedData }) => {
+import { useSelector } from "react-redux";
+const CartItems = ({ handleOrderedData }) => {
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const totalPrice = cartItems?.reduce((sum, item) => (sum += item.count * item.price), 0);
   const [isCheckout, setIsCheckout] = useState(false);
   const [customerData, setCustomerData] = useState({
@@ -26,12 +28,12 @@ const CartItems = ({ cartItems, handleRemoveCartItem, handleOrderedData }) => {
   return (
     <div>
       <div className="cart cart-header">
-        {cartItems.length ? `You have ${cartItems.length} in the cart` : `Cart is empty`}
+        {cartItems?.length ? `You have ${cartItems.length} in the cart` : `Cart is empty`}
       </div>
       <div className="cart-list">
-        {cartItems.map((item) => (
+        {cartItems?.map((item) => (
           <Fade left collapse>
-            <CartItem item={item} handleRemoveCartItem={handleRemoveCartItem} />
+            <CartItem item={item} />
           </Fade>
         ))}
       </div>
