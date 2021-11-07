@@ -50,7 +50,7 @@ const Products = () => {
                 </p>
                 <p>{product.description}</p>
                 <p>
-                  Avaiable Sizes:{" "}
+                  Available Sizes:{" "}
                   {product.availableSizes.map((x) => (
                     <span>
                       {" "}
