@@ -1,18 +1,18 @@
 import { React, useEffect, useState } from "react";
 import Product from "../Product/Product";
 import "./Products.css";
-import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
 import formatCurrency from "./../../util";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreator } from "./../../actions/index";
-const Products = ({ handleAddCartItem }) => {
+import { actionCreator, cartActionCreator } from "./../../actions/index";
+const Products = () => {
   const [product, setProduct] = useState(null);
   const products = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const { fetchProducts } = bindActionCreators(actionCreator, dispatch);
+  const { addToCart } = bindActionCreators(cartActionCreator, dispatch);
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -27,15 +27,13 @@ const Products = ({ handleAddCartItem }) => {
       {!products ? (
         <div>Loading</div>
       ) : (
-        <Fade bottom collapse>
-          <ul className="products">
-            {products?.filteredItems?.reverse().map((item, index) => (
-              <li>
-                <Product key={index} item={item} handleAddCartItem={handleAddCartItem} handleOpenModal={openModal} />
-              </li>
-            ))}
-          </ul>
-        </Fade>
+        <ul className="products">
+          {products?.filteredItems?.reverse().map((item, index) => (
+            <li>
+              <Product key={index} item={item} handleOpenModal={openModal} />
+            </li>
+          ))}
+        </ul>
       )}
 
       {product && (
@@ -65,7 +63,7 @@ const Products = ({ handleAddCartItem }) => {
                   <button
                     className="button primary"
                     onClick={() => {
-                      handleAddCartItem(product);
+                      addToCart(product);
                       closeModal();
                     }}
                   >
@@ -82,6 +80,3 @@ const Products = ({ handleAddCartItem }) => {
 };
 
 export default Products;
-// export default connect((state) => ({ products: state.products.items }), {
-//   fetchProducts,
-// })(Products);
