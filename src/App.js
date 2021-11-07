@@ -5,10 +5,6 @@ import Filter from "./components/Filter/Filter";
 import Products from "./components/Products/Products";
 import store from "./store/store";
 function App() {
-  const handleOrderedData = (order) => {
-    alert("Need to save order for " + order.name);
-  };
-
   return (
     <Provider store={store}>
       <div className="grid-container">
@@ -21,7 +17,7 @@ function App() {
             <Products />
           </div>
           <div className="sidebar">
-            <CartItems handleOrderedData={handleOrderedData} />
+            <CartItems />
           </div>
         </main>
         <footer>All rights reserved</footer>
