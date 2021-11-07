@@ -22,9 +22,6 @@ const CartItems = () => {
     email: "",
     name: "",
     address: "",
-    cartItems: cartItems,
-    totalPrice: totalPrice,
-    date: new Date().toISOString(),
   });
   const handleInput = (e) => {
     setCustomerData({ ...customerData, [e.target.name]: e.target.value });
@@ -32,7 +29,7 @@ const CartItems = () => {
   const handleCreateOrder = (e) => {
     if (customerData.email && customerData.name && customerData.address) {
       e.preventDefault();
-      createOrder({ ...customerData, cartItems });
+      createOrder({ ...customerData, cartItems, totalPrice, date: new Date().toISOString() });
     } else {
       console.log("Provide data");
     }
